@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="高校生向けの自己理解・職業探究サイト。価値観、得意なこと、好きなことから自分の特徴と仕事の候補を考えます。">
+<title>自分発見｜未来の仕事を考える</title>
+<style>
+:root{--ink:#203047;--muted:#65748a;--line:#e3e9f1;--paper:#fff;--bg:#f4f7fb;--green:#178b70;--green2:#e7f5f0;--yellow:#f2bd37;--yellow2:#fff6dc;--pink:#e77e9a;--pink2:#fff0f4;--blue:#5279bc}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans JP","Yu Gothic",Meiryo,sans-serif;line-height:1.65}
+header{background:linear-gradient(120deg,#173e58,#246d6a);color:#fff;padding:34px 18px 30px}
+.hero{max-width:980px;margin:auto}.eyebrow{font-size:.82rem;letter-spacing:.12em;opacity:.85}.hero h1{font-size:clamp(1.8rem,5vw,3rem);line-height:1.25;margin:.45rem 0}.hero p{max-width:700px;margin:.7rem 0 0;color:#e6f3f0}
+main{max-width:980px;margin:22px auto;padding:0 14px 60px}.intro,.panel,.result{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 5px 20px rgba(31,54,80,.045)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.step{border-radius:14px;padding:14px;background:#f5f7fa}.step b{display:block;margin-bottom:3px}.step small{color:var(--muted)}
+.section-head{display:flex;gap:12px;align-items:center;margin-bottom:10px}.num{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;font-weight:800;font-size:1.1rem;flex:none}.green .num{background:var(--green2);color:var(--green)}.yellow .num{background:var(--yellow2);color:#966b00}.pink .num{background:var(--pink2);color:#bd4e70}
+h2{font-size:1.45rem;margin:0}h3{font-size:1.05rem;margin:20px 0 8px}.hint{color:var(--muted);font-size:.92rem;margin:.2rem 0 14px}
+.search{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font:inherit;margin:8px 0 12px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.choice{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--line);border-radius:11px;padding:10px 11px;background:#fff;cursor:pointer;min-height:48px}.choice:hover{border-color:#9db7b2;background:#fbfefd}.choice input{margin-top:5px;accent-color:var(--green);width:17px;height:17px;flex:none}.choice span{font-size:.93rem}.choice em{font-style:normal;color:var(--muted);font-size:.82rem;display:block}
+.counter{font-size:.85rem;color:var(--muted);margin:8px 0}.reflection{width:100%;min-height:90px;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;resize:vertical}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:0;border-radius:11px;padding:12px 18px;font:inherit;font-weight:700;cursor:pointer}.primary{background:#176d67;color:#fff}.secondary{background:#edf1f6;color:#33445b}.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{display:none;border:2px solid #b9ded2}.result.show{display:block}.result h2{margin-bottom:8px}.result-card{border:1px solid var(--line);border-radius:13px;padding:15px;margin:12px 0}.tag{display:inline-block;background:#edf5f3;color:#176d67;border-radius:20px;padding:4px 9px;margin:3px;font-size:.88rem}.career{background:#f6f9fc;border-radius:12px;padding:13px;margin:9px 0}.career h4{margin:0 0 4px}.muted{color:var(--muted);font-size:.88rem}.bar{height:12px;background:#edf0f4;border-radius:9px;overflow:hidden;margin:6px 0 10px}.bar i{display:block;height:100%;background:var(--green);border-radius:9px}.metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}.metric{background:#f5f8fb;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}.metric strong{display:block;font-size:1.65rem;line-height:1.3;color:#176d67}.metric span{font-size:.82rem;color:var(--muted)}.chart-row{display:grid;grid-template-columns:minmax(105px,1fr) 3fr auto;gap:10px;align-items:center;margin:11px 0;font-size:.9rem}.chart-track{height:13px;background:#edf0f4;border-radius:9px;overflow:hidden}.chart-fill{height:100%;background:#5279bc;border-radius:9px;min-width:0}.chart-value{font-weight:700;min-width:2.2em;text-align:right;font-variant-numeric:tabular-nums}.chart-note{font-size:.82rem;color:var(--muted);margin-top:10px}@media(max-width:650px){.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-row{grid-template-columns:95px 1fr auto;gap:7px;font-size:.82rem}}
+footer{text-align:center;color:var(--muted);font-size:.82rem;padding:22px}
+@media(max-width:650px){.steps{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.intro,.panel,.result{padding:17px}header{padding:27px 16px}}
+</style>
+</head>
+<body>
+<header><div class="hero"><div class="eyebrow">高校生のための自己理解・進路探究</div><h1>自分発見<br>未来の仕事を考える</h1><p>「何が大切？」「何が得意？」「何が好き？」の3つの視点から、自分らしさを見つけ、将来の仕事の候補を考えてみよう。</p></div></header>
+<main>
+<section class="panel" id="studentEntry">
+<h2>回答者情報・途中保存</h2>
+<p class="hint">氏名を入力してください。学校のGoogleアカウントでログインした状態で利用します。途中保存した回答は、同じアカウントで再開できます。</p>
+<label for="studentName"><b>氏名</b></label>
+<input class="search" id="studentName" maxlength="40" placeholder="例：山田 太郎">
+<div class="muted" id="accountStatus">Googleアカウントを確認しています…</div>
+<div class="actions">
+<button class="btn secondary" id="saveDraft">途中保存</button>
+<button class="btn secondary" id="loadDraft">保存した回答を再開</button>
+<button class="btn primary" id="submitAnswers">回答を提出して教員に共有</button>
+</div>
+<p class="muted" id="saveStatus" aria-live="polite"></p>
+</section>
+<section class="intro">
+<h2>自分を知るための3つの視点</h2>
+<p class="hint">正解・不正解はありません。今の自分に近いもの、少しでも当てはまるものを選びましょう。全部選ぶ必要はありません。</p>
+<div class="steps">
+<div class="step"><b>01　価値観</b><small>仕事や人生で大切にしたいこと</small></div>
+<div class="step"><b>02　得意なこと</b><small>自然にできること・力を発揮しやすいこと</small></div>
+<div class="step"><b>03　好きなこと</b><small>興味がある分野・もっと知りたいこと</small></div>
+</div>
+<p class="muted">所要時間の目安：10〜15分。回答は学校のGoogle Workspace上の管理用スプレッドシートに保存されます。教員用に指定されたアカウントのみが全回答を閲覧できます。</p>
+</section>
+
+<section class="panel green" id="values">
+<div class="section-head"><div class="num">01</div><div><h2>価値観を知る</h2><div class="muted">自分が大切にしたいことは？</div></div></div>
+<p class="hint">「こういう人生・働き方がいい」「こういうことを大切にしたい」と感じるものを選んでください。迷ったら、特に大切だと思うものを5〜8個程度選んでみましょう。</p>
+<input class="search" id="valueSearch" placeholder="価値観を検索（例：成長、挑戦、人助け）" aria-label="価値観を検索">
+<div class="grid" id="valueList"></div><div class="counter" id="valueCount">0個選択中</div>
+<h3>選んだ価値観について考えてみよう</h3>
+<textarea class="reflection" id="valueNote" placeholder="例：人の役に立つことを大切にしたい。誰かの成長を支えられる仕事に魅力を感じる。"></textarea>
+</section>
+
+<section class="panel yellow" id="strengths">
+<div class="section-head"><div class="num">02</div><div><h2>得意なことを知る</h2><div class="muted">自分が自然にできることは？</div></div></div>
+<p class="hint">「得意だと言い切れること」だけでなく、「苦にならない」「人から頼まれる」「気づくとやっている」ことも選びましょう。資料にある100項目をもとにしています。</p>
+<input class="search" id="strengthSearch" placeholder="得意なことを検索（例：計画、聞く、改善）" aria-label="得意なことを検索">
+<div class="grid" id="strengthList"></div><div class="counter" id="strengthCount">0個選択中</div>
+<h3>自分の得意を裏付ける経験は？</h3>
+<textarea class="reflection" id="strengthNote" placeholder="例：学校祭の準備で、作業の順番を考えて効率よく進めた。友人から計画を立てるのが得意だと言われる。"></textarea>
+<h3>得意なことの「使いすぎ」にも気づこう</h3>
+<p class="hint">長所は、状況によっては負担や短所になることもあります。例：慎重さはミスを防ぐ一方、決断に時間がかかることもあります。</p>
+<textarea class="reflection" id="balanceNote" placeholder="例：じっくり考えるのは得意だが、考えすぎて行動が遅くなることがある。"></textarea>
+</section>
+
+<section class="panel pink" id="interests">
+<div class="section-head"><div class="num">03</div><div><h2>好きなことを知る</h2><div class="muted">興味がある分野は？</div></div></div>
+<p class="hint">経験や知識がなくても大丈夫です。「もっと知りたい」「見ていて楽しい」「関わってみたい」と感じる分野を選びましょう。</p>
+<input class="search" id="interestSearch" placeholder="好きなことを検索（例：動物、音楽、医療）" aria-label="好きなことを検索">
+<div class="grid" id="interestList"></div><div class="counter" id="interestCount">0個選択中</div>
+<h3>なぜ興味があるのだろう？</h3>
+<textarea class="reflection" id="interestNote" placeholder="例：動物が好き。世話をしたり、動物の行動について調べたりすることに興味がある。"></textarea>
+</section>
+
+
+<section class="panel" id="experience">
+<div class="section-head"><div class="num" style="background:#eaf0fb;color:#5279bc">04</div><div><h2>経験から自分の良さを見つける</h2><div class="muted">行動を振り返ると、仕事につながる強みが見えてくる</div></div></div>
+<p class="hint">「優しい」「真面目」などの性格の言葉だけで終わらせず、実際に自分がした行動を振り返ります。大きな成果や特別な経験でなくても構いません。</p>
+<h3>① どんな場面での経験ですか？</h3><div class="grid" id="sceneList"></div>
+<h3>② そのとき、どんなことがありましたか？</h3><textarea class="reflection" id="experienceSituation" placeholder="例：学校祭の準備で、作業が予定より遅れていて、何から始めるか決まっていなかった。"></textarea>
+<h3>③ そのとき、自分は何をしましたか？</h3><p class="hint">実際に取った行動に近いものを選んでください。複数選択できます。</p><div class="grid" id="actionList"></div><div class="counter" id="actionCount">0個選択中</div>
+<textarea class="reflection" id="experienceAction" placeholder="例：残っている作業を書き出し、必要な時間を考えて順番を決め、周りに役割を提案した。"></textarea>
+<h3>④ その行動をしたとき、何を考えたり工夫したりしましたか？</h3><textarea class="reflection" id="experienceThinking" placeholder="例：全員が同じ作業をすると時間がかかると思い、得意な作業ごとに分担した方がよいと考えた。"></textarea>
+<h3>⑤ 結果はどうなりましたか？周りにどんな変化がありましたか？</h3><textarea class="reflection" id="experienceResult" placeholder="例：作業が予定より早く進み、全員が自分の役割を理解できた。"></textarea>
+<h3>⑥ その経験から分かった自分の特徴は？</h3><p class="hint">最初から答えを決めなくても大丈夫です。選んだ行動から考えられる能力のヒントを表示します。</p><div class="grid" id="reflectionPromptList"></div>
+<textarea class="reflection" id="experienceLearning" placeholder="例：状況を整理して、優先順位を決めて行動することが自分の強みかもしれない。"></textarea>
+<p class="muted">振り返りのコツ：①状況 ②自分の行動 ③考えたこと・工夫 ④結果 ⑤次にも生かせそうなこと、の順に書くと具体的になります。</p>
+</section>
+
+<section class="intro">
+<h2>診断結果をまとめる</h2>
+<p class="hint">3つの視点と経験の振り返りを組み合わせて、あなたの特徴と向いている可能性のある仕事をランキング表示します。選択数が少なくても結果は見られますが、各項目を複数選ぶと候補を考えやすくなります。</p>
+<div class="actions"><button class="btn primary" id="showResult">自分の特徴と仕事の候補を見る</button><button class="btn secondary" id="reset">すべてリセット</button></div>
+</section>
+<section class="panel" id="teacherPanel" style="display:none">
+<h2>教員専用：回答管理</h2>
+<p class="hint">この画面は管理者として登録されたGoogleアカウントにのみ表示されます。</p>
+<div class="actions"><button class="btn primary" id="refreshResponses">回答一覧を更新</button><button class="btn secondary" id="exportResponses">CSVで保存</button></div>
+<div id="teacherResponses"></div>
+</section>
+<section class="result" id="result" aria-live="polite">
+<h2>あなたの自己理解レポート</h2>
+<p class="muted">これは回答を整理するための参考結果です。職業適性を断定するものではありません。</p>
+<div class="result-card"><h3>あなたが大切にしたい価値観</h3><div id="rValues"></div><p id="rValueNote" class="muted"></p></div>
+<div class="result-card"><h3>あなたの得意なことの傾向</h3><div id="rStrengths"></div><p id="rStrengthNote" class="muted"></p><p id="rBalanceNote" class="muted"></p></div>
+<div class="result-card"><h3>あなたが好き・興味のある分野</h3><div id="rInterests"></div><p id="rInterestNote" class="muted"></p></div>
+<div class="result-card"><h3>回答を数値・グラフで見る</h3>
+<p class="muted">選択した項目の数を表示しています。数が多いほど優れているという意味ではありません。</p>
+<div class="metric-grid">
+<div class="metric"><strong id="metricValues">0</strong><span>価値観の選択数</span></div>
+<div class="metric"><strong id="metricStrengths">0</strong><span>得意なことの選択数</span></div>
+<div class="metric"><strong id="metricInterests">0</strong><span>好きなことの選択数</span></div>
+<div class="metric"><strong id="metricActions">0</strong><span>経験で選んだ行動数</span></div>
+</div>
+<h3>3つの視点の選択数</h3><div id="dimensionChart" aria-label="価値観・得意なこと・好きなことの選択数グラフ"></div>
+<h3>経験から見つかった行動の傾向</h3><div id="actionChart"></div>
+<p class="chart-note">グラフは回答数の比較です。性格や能力の優劣、職業適性を測定するものではありません。</p>
+</div>
+<div class="result-card"><h3>経験から見つかった、仕事に生かせる力</h3><div id="rExperienceSkills"></div><p id="rExperienceSummary" class="muted"></p><p id="rExperienceCareer" class="muted"></p></div>
+<div class="result-card"><h3>仕事の候補を考えるヒント</h3><p class="muted">価値観・得意なこと・好きなこと・経験で選んだ行動の一致度をもとに、具体的な職業をランキング表示します。点数は回答との一致度を示す参考値です。実際の仕事内容や必要な資格は、必ず個別に調べてください。</p><div id="rCareers"></div></div>
+<div class="result-card"><h3>進路を考えるための3つの問い</h3><ol><li>選んだ中で、特に自分らしいと思うものは何か？</li><li>その強みや興味を、どのような場面で生かせそうか？</li><li>気になる仕事について、仕事内容・必要な学び・資格を調べるとしたら何から始めるか？</li></ol></div>
+<div class="actions"><button class="btn secondary" onclick="window.print()">この結果を印刷・PDF保存</button></div>
+</section>
+</main>
+<footer>自分発見｜未来の仕事を考える　— 自分の可能性を広げるための自己理解ツール</footer>
+<script>
+const DATA = {"interests": ["動物", "花", "農業", "林業", "宇宙", "自然環境", "ロボット", "IT", "コンピューター", "アート", "写真", "商品デザイン", "鉄道", "音楽", "歌", "楽器", "イベント", "舞台", "映画", "テレビ", "本", "雑誌", "新聞", "ゲーム", "アニメ", "漫画", "スポーツ", "格闘技", "トレーニング", "アウトドア", "旅行", "観光", "テーマパーク", "ホテル", "ブライダル", "葬儀", "自動車", "飛行機", "バイク", "船", "グラフィックデザイン", "ファッション", "美容", "リラクゼーション", "料理", "お菓子", "栄養", "お酒", "建築", "土木", "インテリア", "医療技術", "リハビリ", "薬", "福祉", "学校教育", "保育", "政治", "法律", "語学", "国際", "金融", "ビジネス", "キャリア（就職・転職）", "経営", "不動産", "性", "電機", "文房具", "心理", "エンタメ", "レジャー", "広告", "マーケティング", "化学", "おもちゃ", "食品", "電気", "不動産", "経済", "哲学", "家庭", "タバコ", "行政", "運輸・輸送", "宗教", "芸能", "事務", "保安", "介護", "医療治療", "医療サポート", "恋愛", "結婚", "家庭", "飲食", "コンサルティング", "サービス", "物流", "営業・販売"], "strengths": ["より効率的な方法で実行する", "生産性の高い組み合わせを作る", "たくさんのパーツを操る指揮者", "改善する", "問題を解決する", "問題を見つけ出す", "秩序立てる", "淡々と物事を進める", "計画を立てる", "人を平等に扱う", "ルールを守る", "ルールを作る・平等なルールを作る", "用心深い", "慎重に計画を立てる", "人の話を引き出す", "倫理観が強い", "一貫性がある", "献身的", "責任感がある", "役割を重視する", "約束を守る", "できるだけ多くのことをこなす", "できるだけ生産的であろうとする", "バイタリティがある", "目標のために役立つことだけやる", "目標を達成する", "目標に向かう", "行動力がある・考える前に動く", "新しいことを始める", "人の背中を押す", "勝つ", "明確な基準で評価されたい", "勝つことにこだわる", "巧みに言葉を使う", "言葉の力を持っている", "伝える力がある", "現状に満足しない", "高い理想を目指す", "強みを発揮したがる", "重要な存在でありたい", "感謝されたい", "注目されたい", "自信を持って責任を取る", "自分の可能性を信じる", "自ら道を決める", "人に好かれる", "人を繋げる", "たくさんの人と知り合う", "意見を強く主張する", "事態の把握が上手い", "目標を示して周りを巻き込む", "関連性を直感的に見出す", "ゆとりがある", "世界と繋がりを感じる", "他人の感情を引き出す", "感情を察する", "他人の視点で考える", "人の長所に気づく", "人の個性に気づく", "人間観察をする", "親密な関係を好む", "仲間意識が強い", "じっくりと人と関係を築く", "人の可能性を信じる", "人の成長を見届けて伝える", "人の成長を応援する", "合意点を見つけて前に進める", "対立を避ける", "現実的", "環境に適応する", "柔軟性がある", "今この瞬間を大事にする", "グループの輪を広げる", "ハブになる資質", "懐が深い", "ポジティブである", "人を盛り立てる", "良いことに注目する", "新しいことを身につける", "最新のことを学ぶ", "常に希望を持っている", "過去を振り返る", "原点を振り返る", "情報を集める", "好奇心の範囲が広い", "集めた情報を役立てる", "構造化して考える", "最善の道筋を見つけ出す", "複数の道筋を見つけ出す", "抽象的に思考する", "関係のない事象に共通点を見つける", "好奇心がある", "考えることが好き", "自分や他人に質問をする", "じっくりと考える", "事実が好き", "客観的", "論理的", "未来を想像する", "ビジョンからエネルギーを得る"], "values": [{"name": "発見", "desc": "新しいものごとを見つけ出す"}, {"name": "正確性", "desc": "自分の意見や信念を正しく伝える"}, {"name": "達成", "desc": "何か重要なことを達成する"}, {"name": "冒険", "desc": "新しくてワクワクする体験をする"}, {"name": "魅力", "desc": "身体的な魅力を保つ"}, {"name": "権力", "desc": "他者に対して責任を持って指導する"}, {"name": "影響", "desc": "他人をコントロールする"}, {"name": "自律", "desc": "人まかせにしないで自分で決める"}, {"name": "美", "desc": "身の周りの美しいものを味わう"}, {"name": "勝利", "desc": "自分や相手に打ち勝つこと"}, {"name": "挑戦", "desc": "難しい仕事や問題に取り組む"}, {"name": "変化", "desc": "変化に富んだバラエティ豊かな人生を送る"}, {"name": "快適さ", "desc": "ストレスのない快適な人生を送る"}, {"name": "誓約", "desc": "絶対に破れない約束や誓いを結ぶ"}, {"name": "思いやり", "desc": "他者に心を寄せて助ける"}, {"name": "貢献", "desc": "世界の役に立つ"}, {"name": "人助け", "desc": "周囲の人の役に立つ"}, {"name": "礼儀正しさ", "desc": "他者に対して誠実で礼儀正しく接する"}, {"name": "創造", "desc": "新しくて斬新なアイデアを生む"}, {"name": "信頼", "desc": "信用があって頼れる人間になる"}, {"name": "義務", "desc": "自分の義務と責任を果たす"}, {"name": "調和", "desc": "周囲の環境と調和しながら生きる"}, {"name": "興奮", "desc": "スリルと刺激に満ちた人生を送る"}, {"name": "誠実", "desc": "関わった人にウソをつかず誠実に生きる"}, {"name": "名声", "desc": "有名になって存在を認められる"}, {"name": "家族", "desc": "幸福で愛に満ちた家庭を作る"}, {"name": "タフネス", "desc": "丈夫で強い身体を保つ"}, {"name": "柔軟", "desc": "新たな環境にも簡単になじむ"}, {"name": "許し", "desc": "他人を許しながら生きる"}, {"name": "友情", "desc": "親密で助け合える友人を作る"}, {"name": "楽しさ", "desc": "遊ぶことで人生を楽しむ"}, {"name": "気前のよさ", "desc": "自分の物を他人に共有する"}, {"name": "信念", "desc": "自分が正しいと思う通りに行動する"}, {"name": "信教", "desc": "自分を超えた存在の意思を考える"}, {"name": "成長", "desc": "良い方向への変化と成長を維持する"}, {"name": "健康", "desc": "健やかで体調よく生きる"}, {"name": "協力", "desc": "他者と協力して何かをする"}, {"name": "正直さ", "desc": "ウソをつかず正直に生きる"}, {"name": "希望", "desc": "未来に望みを持って生きる"}, {"name": "謙遜", "desc": "つつましい態度で生きる"}]};
+const selected={values:new Set(),strengths:new Set(),interests:new Set()};
+const el=id=>document.getElementById(id);
+function renderList(target,items,type,searchId,countId){
+ const root=el(target), query=el(searchId);
+ function draw(){
+  const q=query.value.trim().toLowerCase();
+  root.innerHTML="";
+  items.forEach((item,i)=>{
+   const name=typeof item==="string"?item:item.name;
+   const desc=typeof item==="string"?"":item.desc;
+   if(q&&!(`${name} ${desc}`.toLowerCase().includes(q)))return;
+   const label=document.createElement("label");label.className="choice";
+   const input=document.createElement("input");input.type="checkbox";input.checked=selected[type].has(name);
+   input.addEventListener("change",()=>{input.checked?selected[type].add(name):selected[type].delete(name);updateCount(type,countId)});
+   const span=document.createElement("span");span.textContent=name;
+   if(desc){const small=document.createElement("em");small.textContent=desc;span.appendChild(small)}
+   label.append(input,span);root.appendChild(label);
+  });
+ }
+ query.addEventListener("input",draw);draw();updateCount(type,countId);
+}
+function updateCount(type,id){el(id).textContent=selected[type].size+"個選択中";}
+renderList("valueList",DATA.values,"values","valueSearch","valueCount");
+renderList("strengthList",DATA.strengths,"strengths","strengthSearch","strengthCount");
+renderList("interestList",DATA.interests,"interests","interestSearch","interestCount");
+
+const scenes=["授業・勉強","学校祭・学校行事","部活動・委員会","友人・人間関係","家庭・日常生活","趣味・習い事","アルバイト・職場体験","地域活動・ボランティア","その他"];
+const actionOptions=[
+["段取り・計画","やることを整理し、順番や時間配分を考えた","計画力・段取り力",["企画・運営","施工管理","生産管理"]],
+["課題発見","うまくいかない原因や改善点を見つけた","課題発見力・分析力",["研究・調査","品質管理","業務改善"]],
+["改善・工夫","別の方法を試したり、やり方を工夫した","改善力・創意工夫",["技術職","商品開発","業務改善"]],
+["周囲との調整","意見を聞き、役割や考えを調整した","調整力・合意形成力",["人事・採用","営業","プロジェクト管理"]],
+["説明・発信","相手に伝わるように説明・提案した","説明力・提案力",["営業","広報","教育"]],
+["支援・育成","相手の状況に合わせて手助けしたり教えたりした","支援力・指導力",["教育・保育","福祉","人材育成"]],
+["正確な確認","間違いや抜けがないか確認し、正確に進めた","正確性・確認力",["事務・経理","品質検査","医療事務"]],
+["継続・粘り強さ","すぐに結果が出なくても練習や作業を続けた","継続力・粘り強さ",["技能職","研究","スポーツ指導"]],
+["自分から行動","指示を待たず、必要だと思うことを始めた","主体性・実行力",["起業・事業運営","企画","現場管理"]],
+["情報収集・学習","調べたり質問したりして、新しいことを覚えた","情報収集力・学習力",["IT・技術職","研究","専門職"]],
+["集中・技能","細かい作業や技術を集中してやり遂げた","集中力・技能習得力",["製造・整備","調理","デザイン"]],
+["判断・優先順位","状況を見て、何を先にするか判断した","判断力・優先順位づけ",["運営・管理","医療・救急関連","物流管理"]]
+];
+const prompts=["自分から始めた","最後までやり切った","以前より良くなるよう工夫した","周りの意見を聞いて取り入れた","失敗や結果から次の方法を考えた","相手や状況に合わせてやり方を変えた"];
+const sceneSet=new Set(), actionSet=new Set(), promptSet=new Set();
+function drawSimpleChoices(rootId,items,set,countId,withDesc=false){
+ const root=el(rootId);root.innerHTML="";
+ items.forEach((item,i)=>{
+  const label=document.createElement("label");label.className="choice";
+  const cb=document.createElement("input");cb.type="checkbox";cb.checked=set.has(i);
+  cb.addEventListener("change",()=>{cb.checked?set.add(i):set.delete(i);if(countId)el(countId).textContent=set.size+"個選択中"});
+  const span=document.createElement("span");span.textContent=withDesc?item[0]:item;
+  if(withDesc){const em=document.createElement("em");em.textContent=item[1];span.append(em)}
+  label.append(cb,span);root.append(label);
+ });
+ if(countId)el(countId).textContent=set.size+"個選択中";
+}
+drawSimpleChoices("sceneList",scenes,sceneSet);
+drawSimpleChoices("actionList",actionOptions,actionSet,"actionCount",true);
+drawSimpleChoices("reflectionPromptList",prompts,promptSet);
+
+
+const careerMap=[
+ {name:"人・暮らしを支える",interest:["動物","花","自然環境","医療技術","リハビリ","薬","福祉","学校教育","保育","心理","医療治療","医療サポート","介護"],skill:["人の話を引き出す","他人の感情を引き出す","感情を察する","他人の視点で考える","人の長所に気づく","人の成長を応援する","人を平等に扱う"],value:["思いやり","貢献","人助け","協力","誠実","友情"],jobs:["看護・医療・リハビリ関連","福祉・介護・生活支援","教育・保育・相談支援","動物・自然環境に関わる仕事"]},
+ {name:"調べる・分析する",interest:["宇宙","IT","コンピューター","化学","金融","経済","法律","語学","国際","哲学","心理","医療技術"],skill:["問題を解決する","問題を見つけ出す","情報を集める","構造化して考える","最善の道筋を見つけ出す","複数の道筋を見つけ出す","事実が好き","客観的","論理的","じっくりと考える"],value:["発見","正確性","挑戦","成長","自律"],jobs:["研究・調査・分析","データ分析・情報技術","法律・金融・経済関連","医療・科学技術関連"]},
+ {name:"作る・表現する",interest:["アート","写真","商品デザイン","音楽","歌","楽器","舞台","映画","テレビ","本","雑誌","新聞","アニメ","漫画","グラフィックデザイン","ファッション","広告","芸能"],skill:["新しいことを始める","抽象的に思考する","関係のない事象に共通点を見つける","好奇心がある","高い理想を目指す","言葉の力を持っている","伝える力がある"],value:["創造","美","発見","変化","自律"],jobs:["デザイン・映像・写真制作","音楽・舞台・芸術関連","出版・編集・報道","広告・広報・コンテンツ制作"]},
+ {name:"企画する・人を動かす",interest:["イベント","ビジネス","キャリア（就職・転職）","経営","広告","マーケティング","コンサルティング","営業・販売","政治","行政"],skill:["目標を示して周りを巻き込む","人の背中を押す","目標を達成する","計画を立てる","合意点を見つけて前に進める","人を繋げる","人を盛り立てる"],value:["達成","影響","権力","挑戦","名声","協力"],jobs:["商品・事業企画","経営・事業運営","営業・販売・マーケティング","イベント企画・運営"]},
+ {name:"正確に管理する・支える",interest:["事務","金融","行政","法律","物流","運輸・輸送","不動産","文房具"],skill:["ルールを守る","ルールを作る・平等なルールを作る","用心深い","慎重に計画を立てる","秩序立てる","約束を守る","責任感がある","情報を集める"],value:["正確性","信頼","義務","誠実","調和"],jobs:["事務・総務・経理","公務・行政関連","品質管理・検査","物流・運輸・管理"]},
+ {name:"技術・ものづくり",interest:["ロボット","鉄道","自動車","飛行機","バイク","船","建築","土木","電機","電気","おもちゃ","インテリア"],skill:["より効率的な方法で実行する","生産性の高い組み合わせを作る","改善する","できるだけ多くのことをこなす","環境に適応する","新しいことを身につける"],value:["達成","挑戦","創造","発見","成長"],jobs:["機械・電気・電子技術","自動車・鉄道・航空・船舶関連","建築・土木・インテリア","製造・ものづくり"]},
+ {name:"人と接する・サービスする",interest:["旅行","観光","テーマパーク","ホテル","ブライダル","レジャー","美容","リラクゼーション","料理","お菓子","飲食","サービス","家庭"],skill:["人に好かれる","人を平等に扱う","人の話を引き出す","柔軟性がある","今この瞬間を大事にする","人の個性に気づく"],value:["楽しさ","思いやり","調和","快適さ","協力"],jobs:["観光・ホテル・旅行関連","美容・接客・生活サービス","調理・製菓・飲食サービス","ブライダル・イベント関連"]},
+ {name:"体を動かす・挑戦する",interest:["スポーツ","格闘技","トレーニング","アウトドア","農業","林業","保安"],skill:["バイタリティがある","目標に向かう","目標を達成する","行動力がある・考える前に動く","自信を持って責任を取る","状況に適応する"],value:["健康","タフネス","冒険","勝利","挑戦"],jobs:["スポーツ・健康・トレーニング関連","警察・消防・保安関連","農林業・アウトドア関連"]}
+];
+const JOB_DETAILS={
+"人・暮らしを支える":[["小学校教諭","小学生に国語・算数などを教え、学級活動や成長を支える"],["保育士","子どもの遊びや生活を支え、発達に合わせた関わりをする"],["看護師","患者の状態を観察し、診療の補助や療養生活の支援をする"],["理学療法士","運動機能の回復を目指し、立つ・歩くなどの練習を支援する"],["社会福祉士","生活上の困りごとを聞き、制度や支援機関につなぐ"],["獣医師","動物の診察・治療・健康管理を行う"]],
+"調べる・分析する":[["データアナリスト","売上や利用状況などのデータを整理し、傾向や改善点を見つける"],["研究開発職","実験・調査を行い、新しい技術や製品の開発につなげる"],["臨床検査技師","血液や細胞などを検査し、診断に必要なデータを提供する"],["システムエンジニア","利用者の要望を整理し、システムの設計・開発を進める"],["公認会計士","企業などの財務情報を監査し、信頼性を確認する"]],
+"作る・表現する":[["グラフィックデザイナー","ポスター・広告・商品パッケージなどを視覚的にデザインする"],["映像編集者","映像素材をつなぎ、音や文字を加えて動画を仕上げる"],["Webデザイナー","Webサイトの画面構成や見た目、使いやすさを設計する"],["編集者","本・雑誌・Web記事の企画、取材、編集、校正を行う"],["ゲームプランナー","ゲームのルールや仕組み、ステージなどを企画する"]],
+"企画する・人を動かす":[["商品企画職","利用者のニーズを調べ、新商品の内容や売り方を考える"],["マーケティング職","市場や顧客を分析し、商品・サービスを知ってもらう方法を考える"],["イベントプランナー","イベントの目的・内容・会場・予算・当日の運営を計画する"],["営業職","顧客の課題や希望を聞き、商品・サービスを提案する"],["人事担当者","採用、研修、配置などを通じて組織と働く人を支える"]],
+"正確に管理する・支える":[["行政事務職","住民対応、申請手続き、地域事業の企画・運営などを行う"],["経理担当者","会社のお金の出入りを記録し、請求・支払・決算を支える"],["一般事務職","書類作成、データ入力、電話・来客対応などで職場を支える"],["品質管理担当者","製品や工程を確認し、品質基準を満たすよう改善する"],["物流管理担当者","商品の保管・出荷・配送が円滑に進むよう調整する"]],
+"技術・ものづくり":[["機械設計技術者","機械や部品の構造・形状・材料などを設計する"],["電気電子技術者","電気設備や電子機器の設計・開発・点検を行う"],["建築設計者","建物の用途や安全性、使いやすさを考えて設計する"],["土木施工管理技士","道路・橋・トンネルなどの工事の安全・品質・工程を管理する"],["自動車整備士","自動車の点検・整備・故障箇所の修理を行う"]],
+"人と接する・サービスする":[["ホテルスタッフ","宿泊客の受付、案内、問い合わせ対応などを行う"],["旅行会社スタッフ","旅行の相談を受け、交通・宿泊・観光などを組み合わせて提案する"],["調理師","飲食店や施設で料理の仕込み・調理・衛生管理を行う"],["美容師","カット・カラーなどの技術で顧客の希望に合わせた施術を行う"],["ブライダルプランナー","結婚式の希望を聞き、内容や準備、当日の進行を調整する"]],
+"体を動かす・挑戦する":[["理学療法士","身体機能の回復を目指して運動や動作の練習を支援する"],["消防士","火災・救急・救助などの現場で人命と安全を守る"],["警察官","地域の安全を守り、事件・事故への対応や予防活動を行う"],["スポーツトレーナー","運動指導やコンディショニングを通じて競技者などを支える"],["農業従事者","作物の栽培・管理・収穫・出荷などを行う"]]
+};
+function tags(id,arr){el(id).innerHTML=arr.length?arr.map(x=>`<span class="tag">${escapeHtml(x)}</span>`).join(""):"<span class='muted'>まだ選択されていません。</span>"}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function note(id,text){el(id).textContent=text?text:"";}
+function drawBarChart(rootId, rows, color="#5279bc"){
+ const root=el(rootId); root.innerHTML="";
+ if(!rows.length){root.innerHTML="<p class='muted'>まだ表示できる回答がありません。</p>";return;}
+ const max=Math.max(1,...rows.map(r=>r.value));
+ rows.forEach(r=>{
+  const row=document.createElement("div");row.className="chart-row";
+  const label=document.createElement("span");label.textContent=r.label;
+  const track=document.createElement("div");track.className="chart-track";
+  const fill=document.createElement("div");fill.className="chart-fill";fill.style.width=(r.value/max*100)+"%";fill.style.background=color;track.append(fill);
+  const value=document.createElement("span");value.className="chart-value";value.textContent=r.value;
+  row.append(label,track,value);root.append(row);
+ });
+}
+function updateSummaryCharts(pickedActions, ranked){
+ el("metricValues").textContent=selected.values.size;
+ el("metricStrengths").textContent=selected.strengths.size;
+ el("metricInterests").textContent=selected.interests.size;
+ el("metricActions").textContent=actionSet.size;
+ drawBarChart("dimensionChart",[
+  {label:"価値観",value:selected.values.size},
+  {label:"得意なこと",value:selected.strengths.size},
+  {label:"好きなこと",value:selected.interests.size}
+ ],"#178b70");
+ const actionRows=pickedActions.map(a=>({label:a[2],value:1}));
+ drawBarChart("actionChart",actionRows,"#d69a27");
+}
+el("showResult").addEventListener("click",()=>{
+ tags("rValues",[...selected.values]);tags("rStrengths",[...selected.strengths]);tags("rInterests",[...selected.interests]);
+ note("rValueNote",el("valueNote").value);note("rStrengthNote",el("strengthNote").value);note("rBalanceNote",el("balanceNote").value);note("rInterestNote",el("interestNote").value);
+
+ const pickedActions=[...actionSet].map(i=>actionOptions[i]);
+ tags("rExperienceSkills",pickedActions.map(a=>a[2]));
+ const experienceTexts=["experienceSituation","experienceAction","experienceThinking","experienceResult","experienceLearning"].map(id=>el(id).value.trim()).filter(Boolean);
+ const selectedScenes=[...sceneSet].map(i=>scenes[i]);
+ const sceneSummary=selectedScenes.length?"経験した場面："+selectedScenes.join("、")+"。":"";
+ note("rExperienceSummary",(sceneSummary+(experienceTexts.length?"振り返りに入力した内容："+experienceTexts.join("／"):"経験の具体的な記述はまだありません。場面・行動・工夫・結果を書き足すと、自己理解が深まります。")));
+
+ const relatedJobs=[...new Set(pickedActions.flatMap(a=>a[3]))];
+ note("rExperienceCareer",relatedJobs.length?"選んだ行動が生かされる仕事の例："+relatedJobs.join("、"):"行動を選ぶと、その力を生かせる仕事の例が表示されます。");
+
+ const chosen=[...selected.interests], chosenSkills=[...selected.strengths], chosenValues=[...selected.values];
+  // 経験で選んだ行動を、関連する職業分野の一致度にも反映する
+  const actionGroupMap = {
+    "段取り・計画":["企画する・人を動かす","正確に管理する・支える"],
+    "課題発見":["調べる・分析する","技術・ものづくり","正確に管理する・支える"],
+    "改善・工夫":["技術・ものづくり","調べる・分析する","企画する・人を動かす"],
+    "周囲との調整":["人・暮らしを支える","企画する・人を動かす","人と接する・サービスする"],
+    "説明・発信":["企画する・人を動かす","人・暮らしを支える","作る・表現する","人と接する・サービスする"],
+    "支援・育成":["人・暮らしを支える","人と接する・サービスする"],
+    "正確な確認":["正確に管理する・支える","調べる・分析する","技術・ものづくり"],
+    "継続・粘り強さ":["技術・ものづくり","体を動かす・挑戦する","調べる・分析する"],
+    "自分から行動":["企画する・人を動かす","技術・ものづくり","体を動かす・挑戦する"],
+    "情報収集・学習":["調べる・分析する","技術・ものづくり","正確に管理する・支える"],
+    "集中・技能":["技術・ものづくり","作る・表現する","人と接する・サービスする"],
+    "判断・優先順位":["正確に管理する・支える","企画する・人を動かす","人・暮らしを支える","体を動かす・挑戦する"]
+  };
+  const pickedActionNames=pickedActions.map(a=>a[0]);
+  const activeWeights = [
+    {weight:30, active:chosen.length>0},
+    {weight:30, active:chosenSkills.length>0},
+    {weight:20, active:chosenValues.length>0},
+    {weight:20, active:pickedActionNames.length>0}
+  ];
+  const totalActiveWeight=activeWeights.filter(x=>x.active).reduce((s,x)=>s+x.weight,0);
+  const ranked=careerMap.map(group=>{
+    const a=group.interest.filter(x=>chosen.includes(x));
+    const b=group.skill.filter(x=>chosenSkills.includes(x));
+    const c=group.value.filter(x=>chosenValues.includes(x));
+    const d=pickedActionNames.filter(action=>(actionGroupMap[action]||[]).includes(group.name));
+    let weighted=0;
+    if(chosen.length) weighted+=(a.length/chosen.length)*30;
+    if(chosenSkills.length) weighted+=(b.length/chosenSkills.length)*30;
+    if(chosenValues.length) weighted+=(c.length/chosenValues.length)*20;
+    if(pickedActionNames.length) weighted+=(d.length/pickedActionNames.length)*20;
+    const score=totalActiveWeight ? weighted/totalActiveWeight*100 : 0;
+    return {...group,matchedInterest:a,matchedSkills:b,matchedValues:c,matchedActions:d,score};
+  }).filter(g=>g.score>0).sort((a,b)=>b.score-a.score);
+
+  updateSummaryCharts(pickedActions,ranked);
+  const careers=el("rCareers");careers.innerHTML="";
+  if(!ranked.length){
+    careers.innerHTML="<p class='muted'>価値観・得意なこと・好きなこと・経験での行動から、いくつか選択すると仕事ランキングが表示されます。</p>";
+  } else {
+    // 職業分野の一致度をもとに、具体的な職業をランキング表示
+    const jobs=[];
+    ranked.forEach(group=>{
+      (JOB_DETAILS[group.name]||[]).forEach(job=>{
+        const existing=jobs.find(x=>x.name===job[0]);
+        if(!existing) jobs.push({name:job[0],description:job[1],group:group.name,score:group.score,matchedInterest:group.matchedInterest,matchedSkills:group.matchedSkills,matchedValues:group.matchedValues,matchedActions:group.matchedActions});
+        else if(group.score>existing.score) Object.assign(existing,{group:group.name,score:group.score,matchedInterest:group.matchedInterest,matchedSkills:group.matchedSkills,matchedValues:group.matchedValues,matchedActions:group.matchedActions});
+      });
+    });
+    jobs.sort((a,b)=>b.score-a.score || a.name.localeCompare(b.name,"ja"));
+    const heading=document.createElement("p");
+    heading.className="muted";
+    heading.textContent="回答との一致度をもとに、具体的な職業を順位付けしています。点数は今回の回答項目の一致度を示す参考値で、能力や将来の成功を予測するものではありません。";
+    careers.append(heading);
+    jobs.slice(0,10).forEach((job,i)=>{
+      const div=document.createElement("div");div.className="career";
+      const h=document.createElement("h4");h.textContent=(i+1)+"位　"+job.name;
+      const groupLine=document.createElement("p");groupLine.className="muted";groupLine.textContent="関連する職業分野："+job.group;
+      const desc=document.createElement("p");desc.textContent=job.description;
+      const scoreLine=document.createElement("p");scoreLine.className="muted";scoreLine.textContent="回答との一致度："+job.score.toFixed(1)+"点／100点";
+      const scoreBar=document.createElement("div");scoreBar.className="bar";
+      const scoreFill=document.createElement("i");scoreFill.style.width=Math.max(0,Math.min(100,job.score))+"%";scoreBar.append(scoreFill);
+      const reasons=[];
+      if(job.matchedInterest.length) reasons.push("好きなこと："+job.matchedInterest.join("、"));
+      if(job.matchedSkills.length) reasons.push("得意なこと："+job.matchedSkills.join("、"));
+      if(job.matchedValues.length) reasons.push("価値観："+job.matchedValues.join("、"));
+      if(job.matchedActions.length) reasons.push("経験での行動："+job.matchedActions.join("、"));
+      const why=document.createElement("p");why.className="muted";why.textContent="上位になった理由："+(reasons.join("／")||"関連分野の回答との一致");
+      div.append(h,groupLine,desc,scoreLine,scoreBar,why);careers.append(div);
+    });
+  }
+  el("result").classList.add("show");el("result").scrollIntoView({behavior:"smooth",block:"start"});
+  window.currentCareerRanked=ranked;
+
+});
+el("reset").addEventListener("click",()=>{
+ ["values","strengths","interests"].forEach(k=>selected[k].clear());
+ ["valueNote","strengthNote","balanceNote","interestNote","valueSearch","strengthSearch","interestSearch"].forEach(id=>el(id).value="");
+ ["experienceSituation","experienceAction","experienceThinking","experienceResult","experienceLearning"].forEach(id=>el(id).value="");
+ sceneSet.clear();actionSet.clear();promptSet.clear();
+ drawSimpleChoices("sceneList",scenes,sceneSet);
+ drawSimpleChoices("actionList",actionOptions,actionSet,"actionCount",true);
+ drawSimpleChoices("reflectionPromptList",prompts,promptSet);
+
+ ["valueList","strengthList","interestList"].forEach((id,i)=>{const types=["values","strengths","interests"],counts=["valueCount","strengthCount","interestCount"];renderRefresh(id,types[i],counts[i])});
+ el("result").classList.remove("show");
+});
+function renderRefresh(id,type,count){const inputId={values:"valueSearch",strengths:"strengthSearch",interests:"interestSearch"}[type];const items={values:DATA.values,strengths:DATA.strengths,interests:DATA.interests}[type];renderList(id,items,type,inputId,count)}
+
+function collectAnswers(){return {name:el('studentName').value.trim(),values:[...selected.values],strengths:[...selected.strengths],interests:[...selected.interests],valueNote:el('valueNote').value,strengthNote:el('strengthNote').value,balanceNote:el('balanceNote').value,interestNote:el('interestNote').value,scenes:[...sceneSet],situation:el('experienceSituation').value,actions:[...actionSet],actionText:el('experienceAction').value,thinking:el('experienceThinking').value,result:el('experienceResult').value,learning:el('experienceLearning').value,prompts:[...promptSet]};}
+function applyAnswers(d){if(!d)return;el('studentName').value=d.name||'';['values','strengths','interests'].forEach(k=>{selected[k]=new Set(d[k]||[])});['valueNote','strengthNote','balanceNote','interestNote'].forEach(k=>el(k).value=d[k]||'');['experienceSituation','experienceAction','experienceThinking','experienceResult','experienceLearning'].forEach((k,i)=>el(k).value=[d.situation,d.actionText,d.thinking,d.result,d.learning][i]||'');sceneSet.clear();(d.scenes||[]).forEach(i=>sceneSet.add(i));actionSet.clear();(d.actions||[]).forEach(i=>actionSet.add(i));promptSet.clear();(d.prompts||[]).forEach(i=>promptSet.add(i));drawSimpleChoices('sceneList',scenes,sceneSet);drawSimpleChoices('actionList',actionOptions,actionSet,'actionCount',true);drawSimpleChoices('reflectionPromptList',prompts,promptSet);renderRefresh('valueList','values','valueCount');renderRefresh('strengthList','strengths','strengthCount');renderRefresh('interestList','interests','interestCount');}
+function status(t){el('saveStatus').textContent=t;}
+function serverReady(){return !!(window.google&&google.script&&google.script.run);}
+function callServer(fn,payload,ok){if(!serverReady()){status('Google Apps Script版として公開したURLから開いてください。');return;}google.script.run.withSuccessHandler(ok).withFailureHandler(e=>status('処理できませんでした：'+(e.message||e)))[fn](payload);}
+function refreshIdentity(){if(!serverReady()){el('accountStatus').textContent='未接続：Apps Script版のURLから開いてください。';return;}google.script.run.withSuccessHandler(info=>{el('accountStatus').textContent='ログイン中：'+info.email;if(info.isTeacher){el('teacherPanel').style.display='block';loadTeacherResponses();}}).withFailureHandler(e=>{el('accountStatus').textContent='アカウントを確認できません。学校アカウントでログインしてください。';}).getUserInfo();}
+el('saveDraft').addEventListener('click',()=>{const d=collectAnswers();if(!d.name){status('氏名を入力してください。');return;}callServer('saveDraft',d,r=>status(r.message||'途中保存しました。'));});
+el('loadDraft').addEventListener('click',()=>callServer('loadDraft',{},r=>{if(r.data){applyAnswers(r.data);status('保存した回答を読み込みました。');}else status('保存された回答はありません。');}));
+el('submitAnswers').addEventListener('click',()=>{const d=collectAnswers();if(!d.name){status('氏名を入力してください。');return;}if(!confirm('回答を提出します。教員が回答内容と診断結果を確認できるようになります。よろしいですか？'))return;callServer('submitAnswers',d,r=>status(r.message||'提出しました。'));});
+function loadTeacherResponses(){callServer('getAllResponses',{},r=>{const root=el('teacherResponses');root.innerHTML='';const rows=r.rows||[];if(!rows.length){root.textContent='提出済みの回答はありません。';return;}rows.forEach(row=>{const box=document.createElement('details');box.className='career';const summary=document.createElement('summary');summary.textContent=row.name+'（'+row.email+'）— '+row.status;const body=document.createElement('div');body.innerHTML='<p>提出日時：'+escapeHtml(row.updatedAt||'')+'</p><p>価値観：'+escapeHtml((row.values||[]).join('、'))+'</p><p>得意なこと：'+escapeHtml((row.strengths||[]).join('、'))+'</p><p>好きなこと：'+escapeHtml((row.interests||[]).join('、'))+'</p><p>経験：'+escapeHtml(row.situation||'')+'</p><p>自分の行動：'+escapeHtml(row.actionText||'')+'</p><p>工夫・考え：'+escapeHtml(row.thinking||'')+'</p><p>結果：'+escapeHtml(row.result||'')+'</p><p>学び：'+escapeHtml(row.learning||'')+'</p>';box.append(summary,body);root.append(box);});window.teacherRows=rows;});}
+el('refreshResponses').addEventListener('click',loadTeacherResponses);
+el('exportResponses').addEventListener('click',()=>{const rows=window.teacherRows||[];if(!rows.length){alert('出力する回答がありません。');return;}const cols=['name','email','status','updatedAt','values','strengths','interests','situation','actionText','thinking','result','learning'];const csv=[cols.join(','),...rows.map(r=>cols.map(k=>'"'+String(Array.isArray(r[k])?r[k].join(' / '):(r[k]||'')).replace(/"/g,'""')+'"').join(','))].join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));a.download='career_responses.csv';a.click();URL.revokeObjectURL(a.href);});
+refreshIdentity();
+
+</script>
+</body></html>
